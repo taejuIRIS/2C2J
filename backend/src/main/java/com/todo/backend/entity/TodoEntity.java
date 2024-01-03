@@ -1,8 +1,9 @@
 package com.todo.backend.entity;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -19,16 +20,17 @@ public class TodoEntity {
     @Column(nullable = false)
     private String content;
 
-    private String name; // @Column 어노테이션은 선택적, 각 컬럼의 널 값이나 기본값 설정 등에 사용
+    private String memo; // @Column 어노테이션은 선택적, 각 컬럼의 널 값이나 기본값 설정 등에 사용
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'do'")
+    @Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'do'") //
     private String dotype;
 
-    @ManyToOne(fetch = FetchType.LAZY) // 다대일 관계
+    /*@ManyToOne(fetch = FetchType.LAZY) // 다대일 관계, LAZY(지연 로딩)/EAGER(즉시 로딩)
     @JoinColumn(name = "user_id") // 외래키 지정
-    private UserEntity user;
+    private UserEntity user;*/
+
 
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean complete;
+    private Boolean complete;
 
 }
