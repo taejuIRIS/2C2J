@@ -28,17 +28,15 @@ public class RoutinEntity {
 
     private LocalDateTime enddate = LocalDateTime.parse("9999-12-31T23:59:59");
     //끝나는 시간의 기본값을 무한대로 설정
-    @Column(nullable = false,columnDefinition = "VARCHAR(10) DFAULT 'do'")
-    private  String dotype;
+
+    @Enumerated(EnumType.STRING) // 열거형 상수의 문자열 값을 DB에 저장하고 읽음
+    private DoType dotype = DoType.DO;
 
     /*
     @ManyToOne(fetch = FetchType.LAZY) //다대일관계
     @JoinColumn(name = "user_id")
     private UserEntity user;
     */
-
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean complete;
 
     private int selecteddays = 1111111;
 }

@@ -29,17 +29,14 @@ public class ChallengeEntity {
     @Column(nullable = false)
     private LocalDateTime enddate;    // 끝나는 시간은 필수로 입력
 
-    @Column(nullable = false,columnDefinition = "VARCHAR(10) DFAULT 'do'")
-    private  String dotype;
+    @Enumerated(EnumType.STRING) // 열거형 상수의 문자열 값을 DB에 저장하고 읽음
+    private DoType dotype = DoType.DO;
 
     /*
     @ManyToOne(fetch = FetchType.LAZY) //다대일관계
     @JoinColumn(name = "user_id")
     private UserEntity user;
     */
-
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean complete;
 
     private int selecteddays = 1111111;
 }
