@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class TodoEntity {
     @Id // 기본키로 설정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동으로 생성
-    private int num;
+    private int id;
 
     @Column(nullable = false, length = 45) // 널 값 허용 여부, 문자열 개수(디폴트 255)
     private String title;

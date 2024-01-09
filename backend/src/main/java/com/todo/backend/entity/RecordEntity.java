@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class RecordEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int num;
+    private int id;
 
     @Column(nullable = false)
     private LocalDate date;

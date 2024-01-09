@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class RoutinEntity {
     @Id // 기본키
     @GeneratedValue(strategy = GenerationType.IDENTITY) //자동생성
-    private int num;
+    private int id;
 
     @Column(nullable = false, length = 45)
     private String title;
