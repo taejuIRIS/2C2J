@@ -17,11 +17,11 @@ public class RecordScheduler {
         recordService.saveRecordsForTodo();
     }
 
-    @Scheduled(cron = "0 0 0 * * *")
+    /*@Scheduled(cron = "0 0 0 * * *")
     public void saveRecordsForRoutinAndChallenge() {
         // 시작 날짜: 어제 자정, 종료 날짜: 오늘 자정
         LocalDate yesterday = LocalDate.now().minusDays(1);
         LocalDate today = LocalDate.now();
         recordService.saveRecordsForRoutinAndChallenge(yesterday, today);
-    }
+    }*/
 }
