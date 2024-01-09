@@ -57,6 +57,6 @@ public class TodoService {
 
     public List<TodoEntity> getTodoByDate(LocalDate date) {
         // TodoRepository의 findByDate 메서드를 호출하여 해당 날짜에 시작하는 TodoEntity 목록 반환
-        return todoRepository.findByStartdate(date);
+        return todoRepository.findByDate(date);
     }
 }

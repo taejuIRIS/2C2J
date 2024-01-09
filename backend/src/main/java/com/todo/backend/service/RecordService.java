@@ -34,7 +34,7 @@ public class RecordService {
         }
     }
 
-    /*public void saveRecordsForRoutinAndChallenge(LocalDate startDate, LocalDate endDate) {
+    public void saveRecordsForRoutinAndChallenge(LocalDate startDate, LocalDate endDate) {
         // startDate부터 endDate까지 각 날짜에 해당하는 RoutinEntity와 ChallengeEntity 데이터를 조회
         List<RoutinEntity> routinsForDateRange = routinService.getRoutinByDateRange(startDate, endDate);
         List<ChallengeEntity> challengesForDateRange = challengeService.getChallengeByDateRange(startDate, endDate);
@@ -60,5 +60,6 @@ public class RecordService {
                 recordRepository.save(record);
             }
         }
-    }*/
+    }
+
 }

@@ -14,7 +14,7 @@ public class ChallengeService {
     @Autowired
     private ChallengeRepository challengeRepository;
 
-    /*public List<ChallengeEntity> getChallengeByDateRange(LocalDate startDate, LocalDate endDate) {
+    public List<ChallengeEntity> getChallengeByDateRange(LocalDate startDate, LocalDate endDate) {
         return challengeRepository.findByStartdateBetweenAndEnddateBetween(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
-    }*/
+    }
 }

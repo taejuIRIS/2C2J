@@ -14,7 +14,7 @@ public class RoutinService {
     @Autowired
     private RoutinRepository routinRepository;
 
-    /*public List<RoutinEntity> getRoutinByDateRange(LocalDate startDate, LocalDate endDate) {
+    public List<RoutinEntity> getRoutinByDateRange(LocalDate startDate, LocalDate endDate) {
         return routinRepository.findByStartdateBetweenAndEnddateBetween(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
-    }*/
+    }
 }
