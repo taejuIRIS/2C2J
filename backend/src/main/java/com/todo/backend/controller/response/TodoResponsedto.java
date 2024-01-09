@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class TodoResponsedto {
     // 어떤 데이터를 받아올건지 정의
-    private int num;
+    private int id;
     private String title;
     private String content;
     private String memo;
@@ -20,7 +20,7 @@ public class TodoResponsedto {
 
     @Builder
     public TodoResponsedto(TodoEntity todo) { // TodoEntity의 데이터를 Responsedto에 빌드
-        this.num = todo.getNum();
+        this.id = todo.getId();
         this.title = todo.getTitle();
         this.content = todo.getContent();
         this.memo = todo.getMemo();
