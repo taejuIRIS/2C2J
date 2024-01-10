@@ -29,6 +29,7 @@ public class ChallengeService {
         challengeEntity.setContent(challengeRequest.getContent());
         challengeEntity.setMemo(challengeRequest.getMemo());
         challengeEntity.setDotype(DoType.valueOf(challengeRequest.getDotype().toUpperCase()));
+        challengeEntity.setEnddate(challengeRequest.getEnddate());
 
         return challengeRepository.save(challengeEntity);
     }
@@ -41,6 +42,7 @@ public class ChallengeService {
         challengeEntity.setContent(challengeRequest.getContent());
         challengeEntity.setMemo(challengeRequest.getMemo());
         challengeEntity.setDotype(DoType.valueOf(challengeRequest.getDotype().toUpperCase()));
+        challengeEntity.setEnddate(challengeRequest.getEnddate());
 
         return challengeRepository.save(challengeEntity);
     }
@@ -48,7 +50,7 @@ public class ChallengeService {
     public void deleteChallenge(int id) {
         challengeRepository.deleteById(id);
     }
-    public List<ChallengeEntity> getChallengeByDateRange(LocalDate startDate, LocalDate endDate) {
+    /*public List<ChallengeEntity> getChallengeByDateRange(LocalDate startDate, LocalDate endDate) {
         return challengeRepository.findByStartdateBetweenAndEnddateBetween(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
-    }
+    }*/
 }

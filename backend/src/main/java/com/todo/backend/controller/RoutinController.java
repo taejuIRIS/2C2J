@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/todo")
+@RequestMapping("/api/routin")
 public class RoutinController {
 
     @Autowired
@@ -18,8 +18,8 @@ public class RoutinController {
 
     @GetMapping
     public List<RoutinResponsedto> getAllRoutin() {
-        List<RoutinEntity> todo = routinService.getAllRoutin();
-        return RoutinResponsedto.fromroutinList(todo);
+        List<RoutinEntity> routin = routinService.getAllRoutin();
+        return RoutinResponsedto.fromroutinList(routin);
     }
 
     // 투두 추가

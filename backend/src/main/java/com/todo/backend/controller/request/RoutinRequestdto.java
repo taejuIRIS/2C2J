@@ -10,5 +10,4 @@ public class RoutinRequestdto {
     private String content;
     private String memo;
     private String dotype;
-    private Boolean complete;
 }
