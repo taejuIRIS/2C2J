@@ -2,12 +2,14 @@ package com.todo.backend.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "challenge")
 @NoArgsConstructor
 public class ChallengeEntity {

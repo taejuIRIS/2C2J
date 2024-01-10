@@ -1,4 +1,39 @@
 package com.todo.backend.controller.response;
 
+import com.todo.backend.entity.ChallengeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Getter
+@AllArgsConstructor
 public class ChallengeResponsedto {
+    //어떤 데이터를 받아올 것인지 정의
+    private  int id;
+    private  String title;
+    private String content;
+    private String memo;
+    private String dotype;
+
+    @Builder
+    public ChallengeResponsedto(ChallengeEntity challenge) { //ChallengeEntity의 데이터를 Responsedto에 빌드
+        this.id = challenge.getId();
+        this.title = challenge.getTitle();
+        this.content = challenge.getContent();
+        this.memo = challenge.getMemo();
+        this.dotype = challenge.getDotype().name();
+    }
+
+    public static ChallengeResponsedto fromChallenge(ChallengeEntity challenge) {
+        return new ChallengeResponsedto(challenge);
+    }
+
+    public static List<ChallengeResponsedto> fromChallengeList(List<ChallengeEntity> challenge) { //리스트로 변환
+        return challenge.stream()                   // << ???
+                .map(ChallengeResponsedto::fromChallenge)
+                .collect(Collectors.toList());
+    }
 }
