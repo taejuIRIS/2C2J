@@ -26,6 +26,8 @@ public class RoutinService {
         routinEntity.setContent(routinRequest.getContent());
         routinEntity.setMemo(routinRequest.getMemo());
         routinEntity.setDotype(DoType.valueOf(routinRequest.getDotype().toUpperCase()));
+        routinEntity.setStartdate(routinRequest.getStartdate());
+        routinEntity.setEnddate(routinRequest.getEnddate());
 
         return routinRepository.save(routinEntity);
     }
@@ -39,6 +41,8 @@ public class RoutinService {
         routinEntity.setContent(routinRequest.getContent());
         routinEntity.setMemo(routinRequest.getMemo());
         routinEntity.setDotype(DoType.valueOf(routinRequest.getDotype().toUpperCase()));
+        routinEntity.setStartdate(routinRequest.getStartdate());
+        routinEntity.setEnddate(routinRequest.getEnddate());
 
         return routinRepository.save(routinEntity);
     }

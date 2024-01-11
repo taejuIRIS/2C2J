@@ -29,6 +29,7 @@ public class ChallengeService {
         challengeEntity.setContent(challengeRequest.getContent());
         challengeEntity.setMemo(challengeRequest.getMemo());
         challengeEntity.setDotype(DoType.valueOf(challengeRequest.getDotype().toUpperCase()));
+        challengeEntity.setStartdate(challengeRequest.getStartdate());
         challengeEntity.setEnddate(challengeRequest.getEnddate());
 
         return challengeRepository.save(challengeEntity);
@@ -42,6 +43,8 @@ public class ChallengeService {
         challengeEntity.setContent(challengeRequest.getContent());
         challengeEntity.setMemo(challengeRequest.getMemo());
         challengeEntity.setDotype(DoType.valueOf(challengeRequest.getDotype().toUpperCase()));
+        challengeEntity.setEnddate(challengeRequest.getEnddate());
+        challengeEntity.setStartdate(challengeRequest.getStartdate());
         challengeEntity.setEnddate(challengeRequest.getEnddate());
 
         return challengeRepository.save(challengeEntity);

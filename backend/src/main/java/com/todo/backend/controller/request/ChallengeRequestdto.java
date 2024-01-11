@@ -13,5 +13,6 @@ public class ChallengeRequestdto {
     private String content;
     private String memo;
     private String dotype;
+    private LocalDateTime startdate;
     private LocalDateTime enddate;
 }

@@ -3,6 +3,8 @@ package com.todo.backend.controller.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @AllArgsConstructor
 public class RoutinRequestdto {
@@ -10,4 +12,6 @@ public class RoutinRequestdto {
     private String content;
     private String memo;
     private String dotype;
+    private LocalDateTime startdate;
+    private LocalDateTime enddate;
 }

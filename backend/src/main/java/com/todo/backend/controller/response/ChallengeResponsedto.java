@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,10 +14,12 @@ import java.util.stream.Collectors;
 public class ChallengeResponsedto {
     //어떤 데이터를 받아올 것인지 정의
     private  int id;
-    private  String title;
+    private String title;
     private String content;
     private String memo;
     private String dotype;
+    private LocalDateTime startdate;
+    private LocalDateTime enddate;
 
     @Builder
     public ChallengeResponsedto(ChallengeEntity challenge) { //ChallengeEntity의 데이터를 Responsedto에 빌드
@@ -25,6 +28,8 @@ public class ChallengeResponsedto {
         this.content = challenge.getContent();
         this.memo = challenge.getMemo();
         this.dotype = challenge.getDotype().name();
+        this.startdate = challenge.getStartdate();
+        this.enddate = challenge.getEnddate();
     }
 
     public static ChallengeResponsedto fromChallenge(ChallengeEntity challenge) {

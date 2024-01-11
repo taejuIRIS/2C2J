@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,8 @@ public class RoutinResponsedto {
     private String content;
     private String memo;
     private String dotype;
+    private LocalDateTime startdate;
+    private LocalDateTime enddate;
 
     @Builder
     public RoutinResponsedto(RoutinEntity routin) { // RoutinEntity의 데이터를 Responsedto에 빌드
@@ -24,6 +27,8 @@ public class RoutinResponsedto {
         this.content = routin.getContent();
         this.memo = routin.getMemo();
         this.dotype = routin.getDotype().name();
+        this.startdate = routin.getStartdate();
+        this.enddate = routin.getEnddate();
     }
 
     public static RoutinResponsedto fromroutin(RoutinEntity routin) { // 루틴 데이터를 가져올 때 사용할 함수
