@@ -1,8 +1,6 @@
 package com.todo.backend.service;
 
-import com.todo.backend.entity.ChallengeEntity;
 import com.todo.backend.entity.RecordEntity;
-import com.todo.backend.entity.RoutinEntity;
 import com.todo.backend.entity.TodoEntity;
 import com.todo.backend.repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,7 @@ public class RecordService {
     @Autowired
     private TodoService todoService;
     @Autowired
-    private RoutinService routinService;
+    private RoutineService routineService;
     @Autowired
     private ChallengeService challengeService;
     @Autowired
@@ -36,11 +34,11 @@ public class RecordService {
 
     /*public void saveRecordsForRoutinAndChallenge(LocalDate startDate, LocalDate endDate) {
         // startDate부터 endDate까지 각 날짜에 해당하는 RoutinEntity와 ChallengeEntity 데이터를 조회
-        List<RoutinEntity> routinsForDateRange = routinService.getRoutinByDateRange(startDate, endDate);
+        List<RoutineEntity> routinsForDateRange = routinService.getRoutinByDateRange(startDate, endDate);
         List<ChallengeEntity> challengesForDateRange = challengeService.getChallengeByDateRange(startDate, endDate);
 
         // RoutinEntity에 대한 처리
-        for (RoutinEntity routin : routinsForDateRange) {
+        for (RoutineEntity routin : routinsForDateRange) {
             for (LocalDate date = routin.getStartdate().toLocalDate(); !date.isAfter(endDate); date = date.plusDays(1)) {
                 // 여기에서 RecordEntity에 저장하는 로직을 구현
                 RecordEntity record = new RecordEntity();

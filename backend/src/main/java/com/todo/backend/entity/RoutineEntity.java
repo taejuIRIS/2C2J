@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "routin")
+@Table(name = "routine")
 @NoArgsConstructor
-public class RoutinEntity {
+public class RoutineEntity {
     @Id // 기본키
     @GeneratedValue(strategy = GenerationType.IDENTITY) //자동생성
     private int id;

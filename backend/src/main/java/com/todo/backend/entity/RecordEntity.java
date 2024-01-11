@@ -26,7 +26,7 @@ public class RecordEntity {
 
     @ManyToOne
     @JoinColumn(name = "routin_id")
-    private RoutinEntity routin;
+    private RoutineEntity routin;
 
     @ManyToOne
     @JoinColumn(name = "challenge_id")
