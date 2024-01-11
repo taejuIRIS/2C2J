@@ -1,10 +1,12 @@
 package com.todo.backend.controller.response;
 
 import com.todo.backend.entity.ChallengeEntity;
+import com.todo.backend.service.DayOfWeekConverter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +22,7 @@ public class ChallengeResponsedto {
     private String dotype;
     private LocalDateTime startdate;
     private LocalDateTime enddate;
+    private DayOfWeek[] selecteddays;
 
     @Builder
     public ChallengeResponsedto(ChallengeEntity challenge) { //ChallengeEntity의 데이터를 Responsedto에 빌드
@@ -30,6 +33,7 @@ public class ChallengeResponsedto {
         this.dotype = challenge.getDotype().name();
         this.startdate = challenge.getStartdate();
         this.enddate = challenge.getEnddate();
+        this.selecteddays = DayOfWeekConverter.convertToDays(challenge.getSelecteddays());
     }
 
     public static ChallengeResponsedto fromChallenge(ChallengeEntity challenge) {
@@ -37,7 +41,7 @@ public class ChallengeResponsedto {
     }
 
     public static List<ChallengeResponsedto> fromChallengeList(List<ChallengeEntity> challenge) { //리스트로 변환
-        return challenge.stream()                   // << ???
+        return challenge.stream()
                 .map(ChallengeResponsedto::fromChallenge)
                 .collect(Collectors.toList());
     }

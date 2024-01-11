@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class ChallengeService {
         challengeEntity.setDotype(DoType.valueOf(challengeRequest.getDotype().toUpperCase()));
         challengeEntity.setStartdate(challengeRequest.getStartdate());
         challengeEntity.setEnddate(challengeRequest.getEnddate());
+        challengeEntity.setSelecteddays(challengeRequest.getSelecteddaysBitset());
 
         return challengeRepository.save(challengeEntity);
     }
@@ -46,6 +48,7 @@ public class ChallengeService {
         challengeEntity.setEnddate(challengeRequest.getEnddate());
         challengeEntity.setStartdate(challengeRequest.getStartdate());
         challengeEntity.setEnddate(challengeRequest.getEnddate());
+        challengeEntity.setSelecteddays(challengeRequest.getSelecteddaysBitset());
 
         return challengeRepository.save(challengeEntity);
     }
@@ -53,6 +56,7 @@ public class ChallengeService {
     public void deleteChallenge(int id) {
         challengeRepository.deleteById(id);
     }
+
     /*public List<ChallengeEntity> getChallengeByDateRange(LocalDate startDate, LocalDate endDate) {
         return challengeRepository.findByStartdateBetweenAndEnddateBetween(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
     }*/
