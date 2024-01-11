@@ -11,5 +11,4 @@ public class TodoRequestdto {
     private String content;
     private String memo;
     private String dotype;
-    private Boolean complete;
 }
