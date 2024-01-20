@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:todotodo/database/routine.dart';
 import 'package:path/path.dart';
+import 'package:todotodo/database/routine_log.dart';
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
   static Future<Database>? _database;
@@ -20,15 +21,20 @@ class DatabaseHelper {
   }
   Future<Database> _initDatabase() async {
     String path = join(await getDatabasesPath(), 'routines.db');
+    print(path);
     print("_initDatabase");
-    return openDatabase(
+    Database database = await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _createDatabase,
     );
+    print('Database version: ${await database.getVersion()}'); // 현재 데이터베이스 버전 출력
+    return database;
   }
 
+
   Future<void> _createDatabase(Database db, int version) async {
+    print("create db");
     await db.execute('''
       CREATE TABLE routines(
         num INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -43,6 +49,17 @@ class DatabaseHelper {
         complete INTEGER
       )
     ''');
+    print("create 1");
+    await db.execute('''
+      CREATE TABLE routine_logs(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        num INTEGER,
+        complete INTEGER,
+        date TEXT,
+        FOREIGN KEY (num) REFERENCES routines (num)
+      )
+    ''');
+    print("create 2");
     if (await _isDatabaseEmpty(db)) {
       await _insertSampleData(db);
     }
@@ -119,5 +136,57 @@ class DatabaseHelper {
       return Routine.fromMap(maps[i]);
     });
   }
+
+  Future<DateTime> getLastLogDay(int routine_num) async {
+    Database db = await database;
+    List<Map<String, dynamic>> result = await db.rawQuery(
+      'SELECT MAX(date) as lastLogDay FROM routine_logs WHERE num = ?',
+      [routine_num],
+    );
+
+    String? lastLogDayString = result.first['lastLogDay'];
+    if (lastLogDayString != null) {
+      print("LastLog ${routine_num} ${lastLogDayString}");
+      return DateTime.parse(lastLogDayString);
+    } else {
+      // 루틴에 대한 기록이 아직 없는 경우, 기본값 반환하거나 상황에 맞게 처리
+      return DateTime.now().subtract(Duration(days: 1));
+    }
+  }
+
+  Future<void> insertLogUntilToday(int routine_num) async {
+    Database db = await database;
+    DateTime lastLogDay = await getLastLogDay(routine_num);
+    DateTime today = DateTime.now();
+
+    // 로그를 삽입해야 하는지 확인
+    while (!isSameDay(lastLogDay, today)) {
+      lastLogDay = lastLogDay.add(Duration(days: 1));
+
+      RoutineLog log = RoutineLog(
+        num: routine_num,
+        complete: 0, // 0 또는 기본값으로 설정
+        date: lastLogDay,
+      );
+      print("insert ${routine_num}");
+      await db.insert('routine_logs', log.toMap());
+    }
+  }
+  Future<List<RoutineLog>> getRoutineLogs(int routine_num) async {
+    Database db = await database;
+    List<Map<String, dynamic>> maps = await db.query(
+      'routine_logs',
+      where: 'num = ?',
+      whereArgs: [routine_num],
+    );
+    return List.generate(maps.length, (i) {
+      return RoutineLog.fromMap(maps[i]);
+    });
+  }
+
+  bool isSameDay(DateTime date1, DateTime date2) {
+    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
+  }
+
 
 }
