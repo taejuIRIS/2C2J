@@ -35,13 +35,13 @@ public class RoutineResponsedto {
         this.selecteddays = DayOfWeekConverter.convertToDays(routine.getSelecteddays());
     }
 
-    public static RoutineResponsedto fromroutine(RoutineEntity routine) { // 루틴 데이터를 가져올 때 사용할 함수
+    public static RoutineResponsedto fromRoutine(RoutineEntity routine) { // 루틴 데이터를 가져올 때 사용할 함수
         return new RoutineResponsedto(routine);
     }
 
-    public static List<RoutineResponsedto> fromroutineList(List<RoutineEntity> routine) { // 리스트로 변환
+    public static List<RoutineResponsedto> fromRoutineList(List<RoutineEntity> routine) { // 리스트로 변환
         return routine.stream()
-                .map(RoutineResponsedto::fromroutine)
+                .map(RoutineResponsedto::fromRoutine)
                 .collect(Collectors.toList());
     }
 

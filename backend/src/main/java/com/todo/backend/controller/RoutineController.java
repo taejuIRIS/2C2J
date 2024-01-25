@@ -19,7 +19,7 @@ public class RoutineController {
     @GetMapping
     public List<RoutineResponsedto> getAllRoutin() {
         List<RoutineEntity> routine = routineService.getAllRoutine();
-        return RoutineResponsedto.fromroutineList(routine);
+        return RoutineResponsedto.fromRoutineList(routine);
     }
 
     // 투두 추가
