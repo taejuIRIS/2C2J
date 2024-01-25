@@ -46,7 +46,7 @@ class DatabaseHelper {
         do_type TEXT,
         selected_days INTEGER,
         user_id TEXT,
-        complete INTEGER
+        complete BOOLEAN
       )
     ''');
     print("create 1");
