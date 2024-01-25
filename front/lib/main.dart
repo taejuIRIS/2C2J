@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'database/database_helper.dart';
+import 'package:todotodo/database/routine_db_provider.dart';
 import 'database/routine.dart';
 import 'database/routine_log.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -18,6 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
+  final RoutineDBProvider routineDBProvider = RoutineDBProvider();
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -28,25 +30,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    initDB();
     loadTodayRoutines();
-    loadRoutineLogs();// initState에서 오늘의 루틴을 불러옴
+    loadRoutineLogs(); // initState에서 오늘의 루틴을 불러옴
   }
 
-  Future<void> initDB() async{
-    await DatabaseHelper.instance.init();
-  }
-  Future<void> loadTodayRoutines() async {// 여기서 데이터베이스 초기화를 기다립니다.
-
+  Future<void> loadTodayRoutines() async {
     DateTime today = DateTime.now();
-    DateTime yesterday = today.subtract(Duration(days: 1));
     //List<Routine> routines = await DatabaseHelper.instance.getDailyRoutines(today);
-    List<Routine> routines = await DatabaseHelper.instance.getDailyRoutines(today);
-    todayRoutines = routines;
+    List<Routine> routines = await widget.routineDBProvider.getDailyRoutines(today);
+    setState(() {
+      todayRoutines = routines;
+    });
   }
-  Future<void> loadRoutineLogs() async{
-    DatabaseHelper.instance.insertLogUntilToday(1);
-    DatabaseHelper.instance.insertLogUntilToday(2);
+
+  Future<void> loadRoutineLogs() async {
+    widget.routineDBProvider.insertLogUntilToday(1);
+    widget.routineDBProvider.insertLogUntilToday(2);
   }
 
   @override
@@ -68,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(todayRoutines[index].content),
                   FutureBuilder<List<RoutineLog>>(
-                    future: DatabaseHelper.instance.getRoutineLogs(todayRoutines[index].num!),
+                    future: widget.routineDBProvider.getRoutineLogs(todayRoutines[index].num!),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return CircularProgressIndicator(); // 로딩 중 표시
@@ -79,16 +78,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         print(snapshot.data);
                         return Expanded(
                           child: ListView.builder(
-                              itemCount: routineLogs?.length,
-                              itemBuilder: (context,index){
-                                return ListTile(
-                                  title: Column(
-                                    children: [
-                                      Text(routineLogs![index].date.toString())
-                                    ],
-                                  ),
-                                );
-                              }
+                            itemCount: routineLogs?.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Column(
+                                  children: [
+                                    Text(routineLogs![index].date.toString())
+                                  ],
+                                ),
+                              );
+                            },
                           ),
                         );
                       }
