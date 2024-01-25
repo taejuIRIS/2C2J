@@ -18,6 +18,7 @@ public class RoutineRequestdto {
     private LocalDateTime startdate;
     private LocalDateTime enddate;
     private DayOfWeek[] selecteddays; // 배열로 선택된 요일을 받음
+    private LocalDateTime lastData;
 
     public int getSelecteddaysBitset() {
         return DayOfWeekConverter.convertToBitset(selecteddays);
