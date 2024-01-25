@@ -41,4 +41,7 @@ public class RoutineEntity {
     */
 
     private int selecteddays = 1111111;
+
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime lastData;
 }

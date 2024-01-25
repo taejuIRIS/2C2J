@@ -7,8 +7,9 @@ import com.todo.backend.repository.RoutineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
-import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RoutineService {
@@ -29,6 +30,7 @@ public class RoutineService {
         routineEntity.setStartdate(routineRequest.getStartdate());
         routineEntity.setEnddate(routineRequest.getEnddate());
         routineEntity.setSelecteddays(routineRequest.getSelecteddaysBitset());
+        routineEntity.setLastData(routineRequest.getLastData());
 
         return routineRepository.save(routineEntity);
     }
@@ -41,9 +43,9 @@ public class RoutineService {
         routineEntity.setContent(routineRequest.getContent());
         routineEntity.setMemo(routineRequest.getMemo());
         routineEntity.setDotype(DoType.valueOf(routineRequest.getDotype().toUpperCase()));
-        routineEntity.setStartdate(routineRequest.getStartdate());
         routineEntity.setEnddate(routineRequest.getEnddate());
         routineEntity.setSelecteddays(routineRequest.getSelecteddaysBitset());
+        routineEntity.setLastData(routineRequest.getLastData());
 
         return routineRepository.save(routineEntity);
     }
@@ -52,7 +54,23 @@ public class RoutineService {
         routineRepository.deleteById(id);
     }
 
-    /*public List<RoutineEntity> getRoutinByDateRange(LocalDate startDate, LocalDate endDate) {
-        return routinRepository.findByStartdateBetweenAndEnddateBetween(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
+    // 실제 데이터베이스에서 가장 최신 데이터의 시간을 조회
+    public LocalDateTime getLastData() {
+        return routineRepository.findLastData();
+    }
+
+    // 가장 최신 데이터 이후 저장된 데이터
+    public List<RoutineRequestdto> filterAddedData(List<RoutineRequestdto> localRoutines, LocalDateTime serverLastSaved) {
+        return localRoutines.stream()
+                .filter(routine -> routine.getLastData().isAfter(serverLastSaved) || routine.getLastData().isEqual(serverLastSaved))
+                .collect(Collectors.toList());
+    }
+
+    // 가장 최신 데이터 이후 수정된 데이터는 나중에...
+    /*public List<RoutineRequestdto> filterModifiedAfter(List<RoutineRequestdto> localRoutines, LocalDateTime serverLastModified) {
+        return localRoutines.stream()
+                .filter(routine -> routine.getLastData().isAfter(serverLastModified))
+                .collect(Collectors.toList());
     }*/
+
 }
