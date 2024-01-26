@@ -3,6 +3,8 @@ package com.todo.backend.controller.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @AllArgsConstructor
 public class TodoRequestdto {
@@ -11,4 +13,5 @@ public class TodoRequestdto {
     private String content;
     private String memo;
     private String dotype;
+    private LocalDateTime lastData;
 }
