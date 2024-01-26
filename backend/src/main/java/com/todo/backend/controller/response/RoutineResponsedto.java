@@ -22,6 +22,7 @@ public class RoutineResponsedto {
     private LocalDateTime startdate;
     private LocalDateTime enddate;
     private DayOfWeek[] selecteddays;
+    private LocalDateTime lastData;
 
     @Builder
     public RoutineResponsedto(RoutineEntity routine) { // RoutinEntity의 데이터를 Responsedto에 빌드
@@ -33,6 +34,7 @@ public class RoutineResponsedto {
         this.startdate = routine.getStartdate();
         this.enddate = routine.getEnddate();
         this.selecteddays = DayOfWeekConverter.convertToDays(routine.getSelecteddays());
+        this.lastData = routine.getLastData();
     }
 
     public static RoutineResponsedto fromRoutine(RoutineEntity routine) { // 루틴 데이터를 가져올 때 사용할 함수

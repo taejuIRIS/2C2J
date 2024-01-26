@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,7 @@ public class TodoResponsedto {
     private String content;
     private String memo;
     private String dotype;
+    private LocalDateTime lastData;
 
     @Builder
     public TodoResponsedto(TodoEntity todo) { // TodoEntity의 데이터를 Responsedto에 빌드
@@ -25,6 +27,7 @@ public class TodoResponsedto {
         this.content = todo.getContent();
         this.memo = todo.getMemo();
         this.dotype = todo.getDotype().name();
+        this.lastData = todo.getLastData();
     }
 
     public static TodoResponsedto fromTodo(TodoEntity todo) { // 투두 데이터를 가져올 때 사용할 함수

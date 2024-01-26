@@ -23,6 +23,7 @@ public class ChallengeResponsedto {
     private LocalDateTime startdate;
     private LocalDateTime enddate;
     private DayOfWeek[] selecteddays;
+    private LocalDateTime lastData;
 
     @Builder
     public ChallengeResponsedto(ChallengeEntity challenge) { //ChallengeEntity의 데이터를 Responsedto에 빌드
@@ -34,6 +35,7 @@ public class ChallengeResponsedto {
         this.startdate = challenge.getStartdate();
         this.enddate = challenge.getEnddate();
         this.selecteddays = DayOfWeekConverter.convertToDays(challenge.getSelecteddays());
+        this.lastData = challenge.getLastData();
     }
 
     public static ChallengeResponsedto fromChallenge(ChallengeEntity challenge) {
