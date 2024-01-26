@@ -24,12 +24,6 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    /*// TodoEntity의 데이터 자정마다 초기화
-    @Scheduled(cron = "0 0 0 * * *") // 매일 자정 (cron 표현식)
-    public void reset() {
-        todoRepository.deleteAll();
-    }*/
-
     public TodoEntity addTodo(TodoRequestdto todoRequest) { // 추가
         TodoEntity todoEntity = new TodoEntity();
         todoEntity.setTitle(todoRequest.getTitle());
@@ -70,10 +64,10 @@ public class TodoService {
                 .collect(Collectors.toList());
     }
 
-    // 가장 최신 데이터 이후 수정된 데이터는 나중에
-    public List<TodoRequestdto> filterModifiedAfter(List<TodoRequestdto> localTodos, LocalDateTime serverLastModified) {
+    // 가장 최신 데이터 이후 수정된 데이터는 나중에...
+    /*public List<TodoRequestdto> filterModifiedAfter(List<TodoRequestdto> localTodos, LocalDateTime serverLastModified) {
         return localTodos.stream()
                 .filter(todo -> todo.getLastData().isAfter(serverLastModified))
                 .collect(Collectors.toList());
-    }
+    }*/
 }

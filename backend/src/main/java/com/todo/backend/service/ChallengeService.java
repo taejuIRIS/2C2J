@@ -24,7 +24,6 @@ public class ChallengeService {
     public  List<ChallengeEntity> getAllChallenge() {
         return challengeRepository.findAll();
     }
-    //ChallengeEntity 데이터 초기화는 enddate에 맞춰서 초기화??
 
     public ChallengeEntity addChallenge(ChallengeRequestdto challengeRequest) { // 추가
         ChallengeEntity challengeEntity = new ChallengeEntity();
@@ -49,7 +48,7 @@ public class ChallengeService {
         challengeEntity.setMemo(challengeRequest.getMemo());
         challengeEntity.setDotype(DoType.valueOf(challengeRequest.getDotype().toUpperCase()));
         challengeEntity.setEnddate(challengeRequest.getEnddate());
-        challengeEntity.setStartdate(challengeRequest.getStartdate());
+        challengeEntity.setStartdate(challengeRequest.getStartdate()); // 챌린지는 시작날짜도 중요하므로 수정 가능하게끔
         challengeEntity.setEnddate(challengeRequest.getEnddate());
         challengeEntity.setSelecteddays(challengeRequest.getSelecteddaysBitset());
         challengeEntity.setLastData(challengeRequest.getLastData());
@@ -72,17 +71,11 @@ public class ChallengeService {
                 .filter(challenge -> challenge.getLastData().isAfter(serverLastsaved) || challenge.getLastData().isEqual(serverLastsaved))
                 .collect(Collectors.toList());
     }
+
     //가장 최신 데이터 이후 수정된 데이터는 나중에...
     /*public List<ChallengeRequestdto> filterModifiedAfter(List<ChallengeRequestdto> localChallenges, LocalDateTime serverLastModified) {
         return localChallenges.stream()
                 .filter(challenge -> challenge.getLastData().isAfter(serverLastModified))
                 .collect(Collectors.toList());
-    }*/
-
-
-
-
-    /*public List<ChallengeEntity> getChallengeByDateRange(LocalDate startDate, LocalDate endDate) {
-        return challengeRepository.findByStartdateBetweenAndEnddateBetween(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
     }*/
 }

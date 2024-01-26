@@ -41,6 +41,7 @@ public class SyncController {
         List<TodoEntity> synchronizedData = syncService.synchronizeTodoWithServer(localTodos);
         return TodoResponsedto.fromTodoList(synchronizedData);
     }
+
     // 챌린지 동기화 데이터 반환
     @PostMapping("/challenge")
     public List<ChallengeResponsedto> syncChallengeWithServer(@RequestBody List<ChallengeRequestdto> localChallenges) {
