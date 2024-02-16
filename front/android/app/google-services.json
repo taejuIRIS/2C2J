@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "104470295914",
+    "project_id": "todotodo-fa88a",
+    "storage_bucket": "todotodo-fa88a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104470295914:android:58c87e118639ca3dc72113",
+        "android_client_info": {
+          "package_name": "com.example.todotodo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGF76YKN26gfKsKsN8frVEO-qjEtZONu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
