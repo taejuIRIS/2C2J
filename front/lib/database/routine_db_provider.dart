@@ -119,6 +119,10 @@ class RoutineDBProvider {
   // 루틴 업데이트 메서드
   Future<int> updateRoutine(Routine routine) async {
     Database db = await database;
+    // if (인터넷 연결 == true){
+    //   api
+    //   pk - user.id
+    // }
     return await db.update('routines', routine.toMap(), where: 'num = ?', whereArgs: [routine.num]);
   }
 

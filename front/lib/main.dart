@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:todotodo/pages/login_page.dart';
+import 'firebase_options.dart';
 import 'package:todotodo/database/routine_db_provider.dart';
 import 'database/routine.dart';
 import 'database/routine_log.dart';
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: LogInPage(),
     );
   }
 }
