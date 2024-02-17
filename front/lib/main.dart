@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('TODOTODO'),
         ),
-        body: HomePage(),
+        body: SingleChildScrollView(
+          child: HomePage(),
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             print('투두리스트 추가');
@@ -25,6 +27,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
