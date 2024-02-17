@@ -32,11 +32,20 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/brain1.png
+    - assets/brain2.png
+    - assets/brain3.png
+    - assets/brain4.png
+    - assets/brain5.png
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  uses-material-design: true
+uses-material-design:
+  - true
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
