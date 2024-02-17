@@ -1,11 +1,17 @@
 package com.todo.backend.service;
 
 import com.todo.backend.controller.request.ChallengeRequestdto;
+import com.todo.backend.controller.request.LogRequestdto;
 import com.todo.backend.controller.request.RoutineRequestdto;
 import com.todo.backend.controller.request.TodoRequestdto;
 import com.todo.backend.entity.ChallengeEntity;
+import com.todo.backend.entity.LogEntity;
 import com.todo.backend.entity.RoutineEntity;
 import com.todo.backend.entity.TodoEntity;
+import com.todo.backend.repository.ChallengeRepository;
+import com.todo.backend.repository.LogRepository;
+import com.todo.backend.repository.RoutineRepository;
+import com.todo.backend.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +25,19 @@ public class SyncService {
     @Autowired
     private RoutineService routineService;
     @Autowired
+    private RoutineRepository routineRepository;
+    @Autowired
     private TodoService todoService;
     @Autowired
+    private TodoRepository todoRepository;
+    @Autowired
     private ChallengeService challengeService;
+    @Autowired
+    private ChallengeRepository challengeRepository;
+    @Autowired
+    private LogService logService;
+    @Autowired
+    private LogRepository logRepository;
 
     // 루틴 동기화 데이터
     public List<RoutineEntity> synchronizeRoutineWithServer(List<RoutineRequestdto> localRoutines) {
@@ -57,7 +73,7 @@ public class SyncService {
         LocalDateTime serverLastData = todoService.getLastData();
 
         // 최신 데이터 이후 추가된 데이터 필터링
-        List<TodoRequestdto>  addedData = todoService.filterAddedData(localTodos, serverLastData);
+        List<TodoRequestdto> addedData = todoService.filterAddedData(localTodos, serverLastData);
 
         // 최신 데이터 이후 수정된 데이터 필터링
         //List<TodoRequestdto> modifiedData = todoService.filterModifiedAfter(localTodos, serverLastData);
@@ -105,6 +121,20 @@ public class SyncService {
         for (ChallengeRequestdto challenge : addedData) {
             challengeService.addChallenge(challenge);
         }
+    }
+
+    // 로그 데이터 동기화(미완성)
+    public List<LogEntity> synchronizeLogWithServer(List<LogRequestdto> localLogs) {
+        for (LogRequestdto localLog : localLogs) {
+            LogEntity logEntity = new LogEntity();
+            logEntity.setDate(localLog.getDate());
+            logEntity.setComplete(localLog.getComplete());
+            logEntity.setTodo(todoRepository.findById(localLog.getTodoId()).orElse(null));
+            logEntity.setRoutine(routineRepository.findById(localLog.getRoutineId()).orElse(null));
+            logEntity.setChallenge(challengeRepository.findById(localLog.getChallengeId()).orElse(null));
+            logRepository.save(logEntity);
+        }
+        return logService.getAllLog();
     }
 
     // 수정 데이터 동기화는 나중에...
