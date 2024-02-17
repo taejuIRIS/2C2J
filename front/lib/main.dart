@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:todotodo/screens/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const ({super.key});
   @override
   Widget build(BuildContext context) {
-    return :
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('TODOTODO'),
+        ),
+        body: HomePage(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            print('투두리스트 추가');
+          },
+          child: Icon(Icons.add),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      ),
+    );
   }
 }
+
+
+
