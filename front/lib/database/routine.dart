@@ -8,7 +8,7 @@ class Routine {
   String doType;
   int selectedDays;
   String userId;
-  bool complete;
+  int? complete;
 
   Routine({
     this.num,
@@ -20,7 +20,7 @@ class Routine {
     required this.doType,
     required this.selectedDays,
     required this.userId,
-    this.complete = false,
+    this.complete = 0,
   });
 
   Map<String, dynamic> toMap() {
@@ -34,7 +34,7 @@ class Routine {
       'do_type': doType,
       'selected_days': selectedDays,
       'user_id': userId,
-      'complete': complete ? 1 : 0,
+      'complete': complete,
     };
   }
 
@@ -49,7 +49,7 @@ class Routine {
       doType: map['do_type'],
       selectedDays: map['selected_days'],
       userId: map['user_id'],
-      complete: map['complete'] == 1,
+      complete: map['complete'],
     );
   }
 }
