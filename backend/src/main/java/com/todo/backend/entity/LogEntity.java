@@ -33,6 +33,10 @@ public class LogEntity {
     @JoinColumn(name = "challenge_id")
     private ChallengeEntity challenge;
 
+    @ManyToOne(fetch = FetchType.LAZY) //다대일관계
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
+
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean complete; // 성공/실패 여부 체크
 }
