@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
-    // TodoEntity의 데이터를 리스트로 저장
+    // 사용자의 모든 할 일 받아오기
     public List<TodoEntity> getAllTodo() {
         return todoRepository.findAll();
     }
@@ -64,10 +63,10 @@ public class TodoService {
                 .collect(Collectors.toList());
     }
 
-    // 가장 최신 데이터 이후 수정된 데이터는 나중에...
-    /*public List<TodoRequestdto> filterModifiedAfter(List<TodoRequestdto> localTodos, LocalDateTime serverLastModified) {
+    // 가장 최신 데이터 이후 수정된 데이터
+    public List<TodoRequestdto> filterModifiedAfter(List<TodoRequestdto> localTodos, LocalDateTime serverLastModified) {
         return localTodos.stream()
                 .filter(todo -> todo.getLastData().isAfter(serverLastModified))
                 .collect(Collectors.toList());
-    }*/
+    }
 }

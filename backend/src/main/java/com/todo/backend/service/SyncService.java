@@ -48,13 +48,13 @@ public class SyncService {
         List<RoutineRequestdto> addedData = routineService.filterAddedData(localRoutines, serverLastData);
 
         // 최신 데이터 이후 수정된 데이터 필터링
-        // List<RoutineRequestdto> modifiedData = routineService.filterModifiedAfter(localRoutines, serverLastData);
+        List<RoutineRequestdto> modifiedData = routineService.filterModifiedAfter(localRoutines, serverLastData);
 
         // 추가된 데이터를 서버에 전송 및 저장
         addRoutineToServer(addedData);
 
         // 수정된 데이터를 서버에 전송 및 저장
-        // updateDataOnServer(modifiedData);
+        updateRoutineOnServer(modifiedData);
 
         // 동기화된 루틴 엔티티 반환
         return routineService.getAllRoutine();
@@ -67,6 +67,13 @@ public class SyncService {
         }
     }
 
+    // 루틴 수정 데이터 동기화
+    private void updateRoutineOnServer(List<RoutineRequestdto> modifiedData) {
+        for (RoutineRequestdto routine : modifiedData) {
+            routineService.updateRoutine(routine.getId(), routine);
+        }
+    }
+
     // 투두 동기화 데이터
     public List<TodoEntity> synchronizeTodoWithServer(List<TodoRequestdto> localTodos) {
         // 가장 최신 데이터의 lastData를 서버로부터 가져옴
@@ -76,13 +83,13 @@ public class SyncService {
         List<TodoRequestdto> addedData = todoService.filterAddedData(localTodos, serverLastData);
 
         // 최신 데이터 이후 수정된 데이터 필터링
-        //List<TodoRequestdto> modifiedData = todoService.filterModifiedAfter(localTodos, serverLastData);
+        List<TodoRequestdto> modifiedData = todoService.filterModifiedAfter(localTodos, serverLastData);
 
         // 추가된 데이터를 서버에 전송 및 저장
         addTodoToServer(addedData);
 
         // 수정된 데이터를 서버에 전송 및 저장
-        //updateDataOnServer(modifiedData);
+        updateTodoOnServer(modifiedData);
 
         // 동기화된 투두 엔티티 반환
         return todoService.getAllTodo();
@@ -92,6 +99,13 @@ public class SyncService {
     private void addTodoToServer(List<TodoRequestdto> addedData) {
         for (TodoRequestdto todo : addedData) {
             todoService.addTodo(todo);
+        }
+    }
+
+    // 투두 수정 데이터 동기화
+    private void updateTodoOnServer(List<TodoRequestdto> modifiedData) {
+        for (TodoRequestdto todo : modifiedData) {
+            todoService.updateTodo(todo.getId(), todo);
         }
     }
 
@@ -123,6 +137,13 @@ public class SyncService {
         }
     }
 
+    // 챌린지 수정 데이터 동기화
+    private void updateChallengeOnServer(List<ChallengeRequestdto> modifiedData) {
+        for (ChallengeRequestdto challenge : modifiedData) {
+            challengeService.updateChallenge(challenge.getId(),challenge);
+        }
+    }
+
     // 로그 데이터 동기화(미완성)
     public List<LogEntity> synchronizeLogWithServer(List<LogRequestdto> localLogs) {
         for (LogRequestdto localLog : localLogs) {
@@ -136,21 +157,4 @@ public class SyncService {
         }
         return logService.getAllLog();
     }
-
-    // 수정 데이터 동기화는 나중에...
-    /*private void updateRoutineOnServer(List<RoutineRequestdto> modifiedData) {
-        for (RoutineRequestdto routine : modifiedData) {
-            routineService.updateRoutine(routine.getId(), routine);
-        }
-    }*/
-    /*private void updateTodoOnServer(List<TodoRequestdto> modifiedData) {
-        for (TodoRequestdto todo : modifiedData) {
-            todoService.updateTodo(todo.getId(), todo);
-        }
-    }*/
-    /*private void updateChallengeOnServer(List<ChallengeRequestdto> modifiedData) {
-        for (ChallengeRequestdto challenge : modifiedData) {
-            challengeService.updateChallenge(challenge.getId(),challenge);
-        }
-    }*/
 }

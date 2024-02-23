@@ -72,10 +72,10 @@ public class ChallengeService {
                 .collect(Collectors.toList());
     }
 
-    //가장 최신 데이터 이후 수정된 데이터는 나중에...
-    /*public List<ChallengeRequestdto> filterModifiedAfter(List<ChallengeRequestdto> localChallenges, LocalDateTime serverLastModified) {
+    //가장 최신 데이터 이후 수정된 데이터
+    public List<ChallengeRequestdto> filterModifiedAfter(List<ChallengeRequestdto> localChallenges, LocalDateTime serverLastModified) {
         return localChallenges.stream()
                 .filter(challenge -> challenge.getLastData().isAfter(serverLastModified))
                 .collect(Collectors.toList());
-    }*/
+    }
 }
