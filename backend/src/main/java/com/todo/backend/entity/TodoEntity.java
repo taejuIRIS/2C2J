@@ -34,7 +34,10 @@ public class TodoEntity {
     @Enumerated(EnumType.STRING) // 열거형 상수의 문자열 값을 DB에 저장하고 읽음
     private DoType dotype = DoType.DO;
 
-    /*@ManyToOne(fetch = FetchType.LAZY) // 다대일 관계, LAZY(지연 로딩)/EAGER(즉시 로딩)
-    @JoinColumn(name = "user_id") // 외래키 지정
-    private UserEntity user;*/
+    @ManyToOne(fetch = FetchType.LAZY) // 다대일 관계, LAZY(지연 로딩)/EAGER(즉시 로딩)
+    @JoinColumn(name = "user_id", nullable = false) // 외래키 지정
+    private UserEntity user;
+
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime lastData;
 }

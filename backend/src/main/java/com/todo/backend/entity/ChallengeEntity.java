@@ -34,11 +34,12 @@ public class ChallengeEntity {
     @Enumerated(EnumType.STRING) // 열거형 상수의 문자열 값을 DB에 저장하고 읽음
     private DoType dotype = DoType.DO;
 
-    /*
     @ManyToOne(fetch = FetchType.LAZY) //다대일관계
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
-    */
 
     private int selecteddays = 1111111;
+
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime lastData;
 }

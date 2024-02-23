@@ -20,6 +20,21 @@ spring:
       hibernate.format_sql: true
       dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
+  # 구글 로그인 설정
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 284545336598-ujugr5b3hllt276gsievui3es4an0psb.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - profile
+              - email
+        provider:
+          google:
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+
 logging:
   level:
     org.hibernate.SQL: debug

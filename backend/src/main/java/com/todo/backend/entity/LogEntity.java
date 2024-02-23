@@ -6,32 +6,37 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "record")
+@Table(name = "log")
 @NoArgsConstructor
-public class RecordEntity {
+public class LogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime date; // 마지막 저장 시각: 서버 데이터와 비교
 
     @ManyToOne
     @JoinColumn(name = "todo_id")
     private TodoEntity todo;
 
     @ManyToOne
-    @JoinColumn(name = "routin_id")
-    private RoutineEntity routin;
+    @JoinColumn(name = "routine_id")
+    private RoutineEntity routine;
 
     @ManyToOne
     @JoinColumn(name = "challenge_id")
     private ChallengeEntity challenge;
 
+    @ManyToOne(fetch = FetchType.LAZY) //다대일관계
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
+
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
-    private Boolean complete;
+    private Boolean complete; // 성공/실패 여부 체크
 }

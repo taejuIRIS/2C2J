@@ -66,11 +66,11 @@ public class RoutineService {
                 .collect(Collectors.toList());
     }
 
-    // 가장 최신 데이터 이후 수정된 데이터는 나중에...
-    /*public List<RoutineRequestdto> filterModifiedAfter(List<RoutineRequestdto> localRoutines, LocalDateTime serverLastModified) {
+    // 가장 최신 데이터 이후 수정된 데이터
+    public List<RoutineRequestdto> filterModifiedAfter(List<RoutineRequestdto> localRoutines, LocalDateTime serverLastModified) {
         return localRoutines.stream()
                 .filter(routine -> routine.getLastData().isAfter(serverLastModified))
                 .collect(Collectors.toList());
-    }*/
+    }
 
 }

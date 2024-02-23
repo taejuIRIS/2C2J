@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChallengeService {
@@ -22,7 +24,6 @@ public class ChallengeService {
     public  List<ChallengeEntity> getAllChallenge() {
         return challengeRepository.findAll();
     }
-    //ChallengeEntity 데이터 초기화는 enddate에 맞춰서 초기화??
 
     public ChallengeEntity addChallenge(ChallengeRequestdto challengeRequest) { // 추가
         ChallengeEntity challengeEntity = new ChallengeEntity();
@@ -33,6 +34,7 @@ public class ChallengeService {
         challengeEntity.setStartdate(challengeRequest.getStartdate());
         challengeEntity.setEnddate(challengeRequest.getEnddate());
         challengeEntity.setSelecteddays(challengeRequest.getSelecteddaysBitset());
+        challengeEntity.setLastData(challengeRequest.getLastData());
 
         return challengeRepository.save(challengeEntity);
     }
@@ -46,9 +48,10 @@ public class ChallengeService {
         challengeEntity.setMemo(challengeRequest.getMemo());
         challengeEntity.setDotype(DoType.valueOf(challengeRequest.getDotype().toUpperCase()));
         challengeEntity.setEnddate(challengeRequest.getEnddate());
-        challengeEntity.setStartdate(challengeRequest.getStartdate());
+        challengeEntity.setStartdate(challengeRequest.getStartdate()); // 챌린지는 시작날짜도 중요하므로 수정 가능하게끔
         challengeEntity.setEnddate(challengeRequest.getEnddate());
         challengeEntity.setSelecteddays(challengeRequest.getSelecteddaysBitset());
+        challengeEntity.setLastData(challengeRequest.getLastData());
 
         return challengeRepository.save(challengeEntity);
     }
@@ -57,7 +60,22 @@ public class ChallengeService {
         challengeRepository.deleteById(id);
     }
 
-    /*public List<ChallengeEntity> getChallengeByDateRange(LocalDate startDate, LocalDate endDate) {
-        return challengeRepository.findByStartdateBetweenAndEnddateBetween(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
-    }*/
+    // 실제 데이터베이스에서 가장 최신 데이터의 시간을 조회
+    public LocalDateTime getLastData() {
+        return challengeRepository.findLastData();
+    }
+
+    // 가장 최신 데이터 이후 저장된 데이터
+    public List<ChallengeRequestdto> filterAddedData(List<ChallengeRequestdto> localChallenges, LocalDateTime serverLastsaved) {
+        return localChallenges.stream()
+                .filter(challenge -> challenge.getLastData().isAfter(serverLastsaved) || challenge.getLastData().isEqual(serverLastsaved))
+                .collect(Collectors.toList());
+    }
+
+    //가장 최신 데이터 이후 수정된 데이터
+    public List<ChallengeRequestdto> filterModifiedAfter(List<ChallengeRequestdto> localChallenges, LocalDateTime serverLastModified) {
+        return localChallenges.stream()
+                .filter(challenge -> challenge.getLastData().isAfter(serverLastModified))
+                .collect(Collectors.toList());
+    }
 }
