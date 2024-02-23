@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class RoutineRequestdto {
+    private int id;
     private String title;
     private String content;
     private String memo;

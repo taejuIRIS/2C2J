@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ChallengeRequestdto {
     //입력 데이터 정의
+    private int id;
     private String title;
     private String content;
     private String memo;
