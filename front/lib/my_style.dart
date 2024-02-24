@@ -16,6 +16,9 @@ class MyColors{
   static final black = Colors.black;
   static final grey = Colors.grey;
   static final green = Color(0xFF00A200);
+  static final light_grey = Color(0xFFDBDBDB);
+  static final beige = Color(0xFFF6EDE4);
+  static final sky_blue = Color(0xFF88B4C6);
 }
 class MyTextStyles{
   static final h1 = TextStyle(color: Colors.black,fontSize: 32,fontWeight: FontWeight.bold);
